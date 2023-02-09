@@ -35,5 +35,7 @@ module Cms
     config.generators.system_tests = nil
 
     config.active_storage.variant_processor = :mini_magick
+
+    config.action_view.preload_links_header = false
   end
 end
