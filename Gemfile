@@ -148,6 +148,6 @@ gem "mail"
 
 gem "mini_magick", github: "minimagick/minimagick"
 
-gem "devise", github: "heartcombo/devise"
+gem "devise"
 gem "devise-encryptable", github: "heartcombo/devise-encryptable"
 gem "responders", github: "heartcombo/responders"
