@@ -4,7 +4,7 @@
 # You can define all roles on a single server, or split them:
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
-server "13.219.151.252", user: "root", roles: %w{app db web}
+server "13.219.151.252", user: "ubuntu", roles: %w{app db web}
 #server "ls-5cff1cbdf6b94ae60f9df94b739cd401efa20a98.cujoqau8qe5t.us-east-1.rds.amazonaws.com", user: "cms", roles: %w{db}
 
 
