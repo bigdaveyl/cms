@@ -2,7 +2,7 @@
 lock "~> 3.19.2"
 
 set :application, "cms"
-set :repo_url, "git@github.com:bigdaveyl/cms.git"
+set :repo_url, "https://github.com/bigdaveyl/cms.git"
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
