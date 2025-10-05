@@ -9,6 +9,15 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+real: &real
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: cms
+  password: <%= Rails.application.credentials.production.database.password %>
+  host: ls-5cff1cbdf6b94ae60f9df94b739cd401efa20a98.cujoqau8qe5t.us-east-1.rds.amazonaws.com
+  socket: 3306
+
 development:
   <<: *default
   database: storage/development.sqlite3
@@ -20,26 +29,41 @@ test:
   <<: *default
   database: storage/test.sqlite3
 
-
-# SQLite3 write its data on the local filesystem, as such it requires
-# persistent disks. If you are deploying to a managed service, you should
-# make sure it provides disk persistence, as many don't.
+# As with config/credentials.yml, you never want to store sensitive information,
+# like your database password, in your source code. If your source code is
+# ever seen by anyone, they now have access to your database.
 #
-# Similarly, if you deploy your application as a Docker container, you must
-# ensure the database is located in a persisted volume.
+# Instead, provide the password or a full connection URL as an environment
+# variable when you boot the app. For example:
+#
+#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+#
+# If the connection URL is provided in the special DATABASE_URL environment
+# variable, Rails will automatically merge its configuration values on top of
+# the values provided in this file. Alternatively, you can specify a connection
+# URL environment variable explicitly:
+#
+#   production:
+#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+#
+# Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
+# for a full overview on how database connection configuration can be specified.
+#
 production:
-  primary:
-    <<: *default
-    # database: path/to/persistent/storage/production.sqlite3
+  primary: &primary_production
+    <<: *real
+    database: cms_production
+    username: cms
+    password: <%= Rails.application.credentials.production.database.password %>
   cache:
-    <<: *default
-    # database: path/to/persistent/storage/production_cache.sqlite3
+    <<: *primary_production
+    database: cms_production_cache
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
-    # database: path/to/persistent/storage/production_queue.sqlite3
+    <<: *primary_production
+    database: cms_production_queue
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    # database: path/to/persistent/storage/production_cable.sqlite3
+    <<: *primary_production
+    database: cms_production_cable
     migrations_paths: db/cable_migrate

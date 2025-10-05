@@ -102,3 +102,6 @@ bower.json
 # Ignore precompiled javascript packs
 /public/packs
 /public/packs-test
+
+/config/credentials/environment.key
+/config/credentials/environment.yml.enc
