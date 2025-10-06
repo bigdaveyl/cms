@@ -54,7 +54,7 @@ production:
     <<: *real
     database: cms_production
     username: cms
-    password: <%= Rails.application.credentials.production.database.password %>
+    password: <%= Rails.application.credentials.dig(:production, :database, :password) %>
   cache:
     <<: *primary_production
     database: cms_production_cache
